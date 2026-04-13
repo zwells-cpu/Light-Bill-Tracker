@@ -51,7 +51,7 @@ export default function App() {
     return <LoginScreen onSignIn={auth.signIn} loading={auth.loading} error={auth.error} />
   }
 
-  const { bills, unpaid, paid, nextDue, avgAmount, totalSpent, meta, togglePaid, setReminder, deleteBill, addManual } = billsStore
+  const { bills, unpaid, paid, nextDue, avgAmount, totalSpent, meta, togglePaid, setReminder, deleteBill, addManual, editBill } = billsStore
 
   return (
     <div style={s.app}>
@@ -100,7 +100,7 @@ export default function App() {
             {unpaid.length === 0
               ? <Empty icon="🎉" title="All caught up!" sub="No unpaid bills. Tap Sync to check for new ones." />
               : unpaid.map(b => (
-                  <BillCard key={b.id} bill={b} onPay={togglePaid} onRemind={setReminderBill} onDelete={deleteBill} />
+                  <BillCard key={b.id} bill={b} onPay={togglePaid} onRemind={setReminderBill} onDelete={deleteBill} onEdit={editBill} />
                 ))
             }
           </div>
@@ -117,7 +117,7 @@ export default function App() {
               : [...bills]
                   .sort((a, b) => (b.dueDate || '').localeCompare(a.dueDate || ''))
                   .map(b => (
-                    <BillCard key={b.id} bill={b} onPay={togglePaid} onRemind={setReminderBill} onDelete={deleteBill} />
+                    <BillCard key={b.id} bill={b} onPay={togglePaid} onRemind={setReminderBill} onDelete={deleteBill} onEdit={editBill} />
                   ))
             }
           </div>

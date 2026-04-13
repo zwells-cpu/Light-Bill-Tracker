@@ -65,6 +65,10 @@ export function useBills() {
     setBills(prev => prev.filter(b => b.id !== id))
   }
 
+  const editBill = (id, updates) => {
+    setBills(prev => prev.map(b => b.id === id ? { ...b, ...updates } : b))
+  }
+
   const unpaid = bills.filter(b => !b.paid)
   const paid = bills.filter(b => b.paid)
   const nextDue = [...unpaid].sort((a, b) => (a.dueDate || 'z').localeCompare(b.dueDate || 'z'))[0]
@@ -75,6 +79,6 @@ export function useBills() {
 
   return {
     bills, unpaid, paid, nextDue, totalSpent, avgAmount,
-    meta, mergeBills, addManual, togglePaid, setReminder, deleteBill,
+    meta, mergeBills, addManual, togglePaid, setReminder, deleteBill, editBill,
   }
 }
